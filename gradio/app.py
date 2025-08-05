@@ -98,8 +98,10 @@ pipe = DiffusionPipeline.from_pretrained(
 pipe.vae.to('cuda:0')
 pipe.unet.to('cuda:0')
 
+#TODO scan the data dir
 if __name__ == "__main__":
-    image_path = '/home/catjam/project/BLIP3o/gradio/animal-compare.png'
+    image_path = os.path.join(os.path.dirname(__file__), '')
     img = Image.open(image_path)
     prompt = 'Please generate a textual description for this indoor equirectangular panoramic image, styled as a diffusion generation prompt, make it elegant and short.'
     txt = process_image(prompt, img)
+    print(txt)
