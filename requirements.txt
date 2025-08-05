@@ -1,8 +1,5 @@
 -e .
 
-torch==2.3.0
-torchvision==0.18.0
-torchaudio==2.3.0
 xformers==0.0.26.post1
 tokenizers
 sentencepiece
@@ -29,8 +26,11 @@ git+https://github.com/JiuhaiChen/diffusers.git
 deepspeed
 datasets
 tabulate
-flash_attn==2.6.2
+flash_attn==2.7.3
 ninja
 qwen_vl_utils
 huggingface_hub
 wandb
+triton==2.2.0
+
+# pip install torch==2.3.1 torchvision==0.18.1 torchaudio==2.3.1 --index-url https://download.pytorch.org/whl/cu122
