@@ -6,3 +6,6 @@ huggingface-cli download Qwen/Qwen2.5-VL-7B-Instruct --local-dir ./pretrained/qw
 
 mkdir -p pretrained/blip3o-8b
 huggingface-cli download BLIP3o/BLIP3o-Model-8B --local-dir ./pretrained/blip3o-8b/
+
+mkdir -p pretrained/clip
+huggingface-cli download jiuhai/eva_clip_vision_tower --local-dir ./pretrained/clip/
