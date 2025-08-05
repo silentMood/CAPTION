@@ -98,10 +98,39 @@ pipe = DiffusionPipeline.from_pretrained(
 pipe.vae.to('cuda:0')
 pipe.unet.to('cuda:0')
 
-#TODO scan the data dir
+def traverse_directory(root_dir):
+    # 确保根目录存在
+    if not os.path.exists(root_dir):
+        print(f"根目录 {root_dir} 不存在！")
+        return
+    paths = []
+    # 遍历根目录下的第一层子目录
+    for first_level in os.listdir(root_dir):
+        first_level_path = os.path.join(root_dir, first_level)
+        # 确保是目录
+        if os.path.isdir(first_level_path):
+            # 遍历第一层子目录下的第二层子目录
+            for second_level in os.listdir(first_level_path):
+                second_level_path = os.path.join(first_level_path, second_level)
+                # 确保是目录
+                if os.path.isdir(second_level_path):
+                    # 保存目录
+                    paths.append(second_level_path)
+    return paths
+
+# 设置根目录
+root_directory = os.path.join(os.getcwd(), '..', 'PIDG', 'd', 'images')  # 替换为实际的根目录路径
+
 if __name__ == "__main__":
-    image_path = os.path.join(os.path.dirname(__file__), '')
-    img = Image.open(image_path)
-    prompt = 'Please generate a textual description for this indoor equirectangular panoramic image, styled as a diffusion generation prompt, make it elegant and short.'
-    txt = process_image(prompt, img)
-    print(txt)
+    datapath = traverse_directory(root_directory)
+    for path in datapath:
+        image_path = os.path.join(path, 'equirectangular_output.png')
+        img = Image.open(image_path)
+        prompt = 'Please generate a textual description for this indoor equirectangular panoramic image, styled as a diffusion generation prompt, make it elegant and short.'
+        txt = process_image(prompt, img)
+        print(txt)
+
+        prompt_path = os.path.join(path, 'prompt.txt')
+        with open(prompt_path, 'w', encoding='utf-8') as f:
+            f.write(txt)
+        print(f"prompt已成功写入文件: {prompt_path}")
