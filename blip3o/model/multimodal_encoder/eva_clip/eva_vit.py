@@ -1,18 +1,14 @@
 """
 # Adapted from https://github.com/baaivision/EVA/tree/master/EVA-CLIP
 """
-
+import os
 from math import pi
 import torch
 from torch import nn
 from einops import rearrange, repeat
 import logging
 
-from huggingface_hub import snapshot_download
-cache_dir = snapshot_download(repo_id="jiuhai/eva_clip_vision_tower")
-
-
-
+cache_dir = os.path.join(os.getcwd(), 'pretrained', 'clip')
 
 def broadcat(tensors, dim=-1):
     num_tensors = len(tensors)
